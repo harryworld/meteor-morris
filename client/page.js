@@ -1,16 +1,34 @@
+chartdata = '';
+
+Template.page.helpers({
+  message: function() {
+    return '';
+  },
+
+  data: function() {
+    year_start = 2008;
+
+    output = new Array();
+
+    db.tracks.find({}).forEach(function(count) {
+      output.push({ year: year_start++, value: count.count });
+    });
+
+    if (chartdata != '') {
+      chartdata.setData(output);
+    }
+
+    return output;
+  }
+});
+
 Template.page.rendered = function() {
-  new Morris.Line({
+  chartdata = new Morris.Line({
     // ID of the element in which to draw the chart.
     element: 'myfirstchart',
     // Chart data records -- each entry in this array corresponds to a point on
     // the chart.
-    data: [
-      { year: '2008', value: 20 },
-      { year: '2009', value: 10 },
-      { year: '2010', value: 5 },
-      { year: '2011', value: 5 },
-      { year: '2012', value: 20 }
-    ],
+    data: this.data,
     // The name of the data record attribute that contains x-values.
     xkey: 'year',
     // A list of names of data record attributes that contain y-values.

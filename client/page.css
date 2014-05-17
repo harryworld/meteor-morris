@@ -1,0 +1,8 @@
+.datasource {
+  clear: both;
+  height: 50px;
+}
+
+.datasource > div {
+  float: left;
+}

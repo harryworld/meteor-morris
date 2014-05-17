@@ -1,0 +1,1 @@
+db.tracks = new Meteor.Collection 'tracks'
